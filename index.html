@@ -8,24 +8,59 @@
   :root { --ink: #1f2a24; --muted: #5b6b62; --accent: #2f6b4f; --bg: #f6f4ee; --card: #ffffff; --line: #ddd8cc; }
   * { box-sizing: border-box; }
   body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--ink); }
-  main { max-width: 640px; margin: 0 auto; padding: 72px 20px; }
+  header { background: var(--card); border-bottom: 1px solid var(--line); }
+  .page-wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+  header .page-wrap { padding-top: 28px; padding-bottom: 24px; }
   .eyebrow { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
-  h1 { font-size: 36px; line-height: 1.15; margin: 12px 0 16px; }
-  p { font-size: 17px; line-height: 1.55; color: var(--muted); }
-  .card { margin-top: 32px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 20px 24px; }
-  .card p { margin: 0; }
-  .card strong { color: var(--ink); }
+  h1 { font-size: 32px; line-height: 1.15; margin: 8px 0 12px; }
+  header p { font-size: 17px; line-height: 1.55; color: var(--muted); margin: 0; max-width: 780px; }
+  main.page-wrap { padding-top: 24px; padding-bottom: 40px; }
+  main > div { margin-bottom: 24px; }
+  footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+  footer .page-wrap { padding-top: 16px; padding-bottom: 24px; }
+  footer a { color: var(--accent); font-weight: 600; }
+  a { color: var(--accent); }
+  .asof { margin-top: 12px; font-size: 14px; color: var(--muted); }
+  nav.topnav { background: var(--card); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 10; }
+  nav.topnav .page-wrap { display: flex; flex-wrap: wrap; gap: 6px 18px; padding-top: 10px; padding-bottom: 10px; }
+  nav.topnav a { text-decoration: none; font-weight: 600; font-size: 14px; }
+  nav.topnav a:hover { text-decoration: underline; }
+  main > div { scroll-margin-top: 56px; }
 </style>
 </head>
 <body>
-<main>
-  <div class="eyebrow">Laurel Ridge Bikeworks · Team Granny Smith</div>
-  <h1>Supplier early-warning dashboard</h1>
-  <p>Coming soon. This page is the team's live link: whatever the team saves to GitHub as <code>index.html</code> shows up here within a minute or two.</p>
-  <div class="card">
-    <p><strong>Team Granny Smith:</strong> ask Claude to replace this page with your dashboard, then say "save my work to GitHub".</p>
-    <p style="margin-top:12px"><a href="Start-Here.html" style="color:var(--accent);font-weight:600">Open your Start Here page &rarr;</a></p>
+<header>
+  <div class="page-wrap">
+    <div class="eyebrow">Laurel Ridge Bikeworks · Team Granny Smith</div>
+    <h1>Supplier early-warning dashboard</h1>
+    <p>This page watches our 13 suppliers for trouble before it hits the factory floor. It combines our own stock numbers with real weather and news warnings, and tells purchasing what to do. Alerts come first, then the risk table, then the warnings behind it.</p>
+    <div class="asof"><strong>As of:</strong> our stock and order data is as of 2026-11-02; weather and news warnings were checked on 2026-11-03.</div>
   </div>
+</header>
+<nav class="topnav" aria-label="Sections"><div class="page-wrap">
+  <a href="#alerts">Alerts</a><a href="#risk">Risk table</a><a href="#map">Map</a><a href="#stockup">Stock-up advisor</a><a href="#whatif">What if?</a><a href="#alternatives">Alternatives</a><a href="#weather">Weather</a><a href="#news">News</a>
+</div></nav>
+<main class="page-wrap">
+  <div id="alerts"></div>
+  <div id="risk"></div>
+  <div id="map"></div>
+  <div id="stockup"></div>
+  <div id="whatif"></div>
+  <div id="alternatives"></div>
+  <div id="weather"></div>
+  <div id="news"></div>
 </main>
+<footer>
+  <div class="page-wrap">Team Granny Smith · Laurel Ridge Bikeworks data as of 2026-11-02, warnings checked 2026-11-03 · <a href="Start-Here.html">Start Here page</a></div>
+</footer>
+<script src="data/laurel-ridge-data.js"></script>
+<script src="sections/weather.js"></script>
+<script src="sections/news.js"></script>
+<script src="sections/alternatives.js"></script>
+<script src="sections/risk.js"></script>
+<script src="sections/alerts.js"></script>
+<script src="sections/map.js"></script>
+<script src="sections/stockup.js"></script>
+<script src="sections/whatif.js"></script>
 </body>
 </html>

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TEST: red-team check of the risk rule</title>
+<style>
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: #f6f4ee; color: #1f2a24; }
+  .banner { background: #6b3fa0; color: #fff; text-align: center; font-size: 40px; font-weight: 800; letter-spacing: .06em; padding: 22px 12px; }
+  .banner small { display: block; font-size: 16px; font-weight: 600; letter-spacing: 0; margin-top: 6px; }
+  main { max-width: 1100px; margin: 0 auto; padding: 20px; }
+  .box { background: #fff; border: 1px solid #ddd8cc; border-radius: 12px; padding: 16px 22px; margin-bottom: 18px; line-height: 1.5; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th { text-align: left; border-bottom: 2px solid #ddd8cc; padding: 8px; font-size: 12px; text-transform: uppercase; color: #5b6b62; }
+  td { border-bottom: 1px solid #ddd8cc; padding: 8px; vertical-align: top; }
+  .pass { color: #1d5a37; font-weight: 800; } .fail { color: #8a1c14; font-weight: 800; }
+  #verdict { font-size: 22px; font-weight: 800; }
+  .small { font-size: 12px; color: #5b6b62; }
+</style>
+</head>
+<body>
+<div class="banner">TEST: THIS IS A TEST PAGE<small>Everything below is made up. It only uses the fictional Cataloochee Cell Works and a fictional "unknown" supplier code. Nothing here is a real warning.</small></div>
+<main>
+  <div class="box">
+    <strong>What this checks, in plain English.</strong> We feed the risk rule misleading fake warnings about Cataloochee Cell Works and see whether it
+    <em>overreacts</em> (calls it High when it should not) or <em>misses</em> (does not call it High when it should). The fake warnings live only on this page
+    and are never added to the real warning list or the dashboard.
+    <div class="small">The rule: a warning raises a supplier to High only if it is serious or watch, medium or high confidence, dated within 30 days before today, and has a source link and date.</div>
+  </div>
+  <div class="box"><div id="verdict">Running...</div></div>
+  <div class="box"><table><thead><tr><th>#</th><th>Fake warning (TEST)</th><th>Should the rating be High?</th><th>Expected rating</th><th>Actual rating</th><th>Result</th><th>Why the tool said so</th></tr></thead><tbody id="rows"></tbody></table></div>
+</main>
+<script src="../data/laurel-ridge-data.js"></script>
+<script src="../sections/risk.js"></script>
+<script>
+(function () {
+  function addDays(iso, n) { var p = iso.split('-'); return new Date(Date.UTC(+p[0], +p[1] - 1, +p[2]) + n * 86400000).toISOString().slice(0, 10); }
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+  function run() {
+    var today = window.GS_RISK_RULE.today;
+    var url = 'https://example.invalid/test-only';
+    function sig(over) {
+      var s = { supplier_id: 'S01', kind: 'news', headline: '', summary: 'TEST ONLY, made up.', source_name: 'Test copy (not a real source)', source_url: url, date: today, confidence: 'high', severity: 'serious' };
+      for (var k in over) s[k] = over[k]; return s;
+    }
+    var tests = [
+      { name: '(a) Low-confidence rumor from an unknown blog', sig: sig({ headline: 'TEST: rumor of a fire, unknown blog', source_name: 'unknown-blog.example', confidence: 'low' }), high: false },
+      { name: '(b) Real-looking but 90-day-old item', sig: sig({ headline: 'TEST: old plant shutdown report', date: addDays(today, -90) }), high: false },
+      { name: '(c) Info-level item', sig: sig({ headline: 'TEST: routine port schedule notice', severity: 'info' }), high: false },
+      { name: '(d) Serious, high-confidence, dated, sourced item', sig: sig({ headline: 'TEST: plant shutdown announced' }), high: true },
+      { name: '(e) Serious item with NO source link (should be ignored)', sig: sig({ headline: 'TEST: unsourced shutdown claim', source_url: '' }), high: false },
+      { name: '(f) Serious item about the WRONG supplier (unknown code S99)', sig: sig({ supplier_id: 'S99', headline: 'TEST: shutdown at some other fictional company' }), high: false, wrong: true },
+      { name: '(g) Edge: serious, high confidence, exactly 31 days old', sig: sig({ headline: 'TEST: just past the 30-day limit', date: addDays(today, -31) }), high: false },
+      { name: '(h) Edge: serious, medium confidence, exactly 30 days old', sig: sig({ headline: 'TEST: just inside the 30-day limit', date: addDays(today, -30), confidence: 'medium' }), high: true },
+      { name: '(i) Edge: serious, high confidence, no date', sig: sig({ headline: 'TEST: undated claim', date: '' }), high: false }
+    ];
+    function levels(res) { var o = {}; res.forEach(function (r) { o[r.supplier_id] = r.level; }); return o; }
+    var baseRes = window.GS_RISK_ASSESS([]), base = levels(baseRes);
+    var over = 0, miss = 0, html = '';
+    tests.forEach(function (t, i) {
+      var res = window.GS_RISK_ASSESS([t.sig]), lv = levels(res);
+      var s01 = res.filter(function (r) { return r.supplier_id === 'S01'; })[0];
+      var expected = t.high ? 'High' : base.S01;
+      var actual = lv.S01, verdict = 'PASS', note = '';
+      if (t.high && actual !== 'High') { verdict = 'FAIL: MISSED'; miss++; }
+      else if (!t.high && actual === 'High') { verdict = 'FAIL: OVERREACTED'; over++; }
+      else if (!t.high && actual !== expected) { verdict = 'FAIL: LEVEL CHANGED'; }
+      // Nobody else should change level because of a fake Cataloochee (or unknown) warning.
+      Object.keys(base).forEach(function (id) { if (id !== 'S01' && base[id] !== lv[id]) { verdict = 'FAIL: OTHER SUPPLIER CHANGED'; } });
+      note = s01 ? s01.reasons.join(' ') : '';
+      html += '<tr><td>' + (i + 1) + '</td><td><strong>' + esc(t.name) + '</strong><div class="small">' + esc(t.sig.headline) + '; severity ' + esc(t.sig.severity) + ', confidence ' + esc(t.sig.confidence) + ', date ' + esc(t.sig.date || '(none)') + ', link ' + (t.sig.source_url ? 'yes' : 'NO') + '</div></td>' +
+        '<td>' + (t.high ? 'Yes' : 'No') + '</td><td>' + esc(expected) + '</td><td>' + esc(actual) + '</td>' +
+        '<td class="' + (verdict === 'PASS' ? 'pass' : 'fail') + '">' + esc(verdict) + '</td><td class="small">' + esc(note) + '</td></tr>';
+      t.verdict = verdict;
+    });
+    document.getElementById('rows').innerHTML = html;
+    var bad = tests.filter(function (t) { return t.verdict !== 'PASS'; }).length;
+    var v = document.getElementById('verdict');
+    v.className = bad ? 'fail' : 'pass';
+    v.textContent = bad ? 'TEST RESULT: ' + bad + ' of ' + tests.length + ' checks FAILED (overreacted: ' + over + ', missed: ' + miss + ').' : 'TEST RESULT: all ' + tests.length + ' checks PASSED. The tool did not overreact and did not miss (overreacted: 0, missed: 0).';
+  }
+  window.addEventListener('load', function () { try { run(); } catch (e) { document.getElementById('verdict').textContent = 'TEST COULD NOT RUN: ' + e.message; } });
+})();
+</script>
+</body>
+</html>
