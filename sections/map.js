@@ -33,16 +33,16 @@
   var LETTER = { High: 'H', Medium: 'M', Low: 'L', Unknown: '?' };
 
   var css =
-    '.map-card{background:var(--card,#fff);border:1px solid var(--line,#ddd8cc);border-radius:12px;padding:20px 24px;color:var(--ink,#1f2a24)}' +
+    '.map-card{background:var(--card,#fff);border:1px solid var(--line,#d3dfe8);border-radius:12px;padding:20px 24px;color:var(--ink,#17323f)}' +
     '.map-card h2{margin:0 0 6px;font-size:22px}.map-card h3{margin:20px 0 6px;font-size:17px}' +
-    '.map-note{color:var(--muted,#5b6b62);font-size:14px;line-height:1.5;margin:0 0 10px}' +
-    '.map-svg{width:100%;height:auto;display:block;background:#f3f6f7;border:1px solid var(--line,#ddd8cc);border-radius:8px}' +
+    '.map-note{color:var(--muted,#4f6b7e);font-size:14px;line-height:1.5;margin:0 0 10px}' +
+    '.map-svg{width:100%;height:auto;display:block;background:#f3f6f7;border:1px solid var(--line,#d3dfe8);border-radius:8px}' +
     '.map-marker{cursor:pointer}.map-marker:focus{outline:none}.map-marker:focus .map-shape,.map-marker:hover .map-shape{stroke:#000;stroke-width:2.5}' +
     '.map-legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;margin:10px 0}' +
-    '.map-detail{min-height:44px;background:#f6f4ee;border:1px solid var(--line,#ddd8cc);border-radius:8px;padding:8px 12px;font-size:14px;line-height:1.45}' +
+    '.map-detail{min-height:44px;background:#eaf1f6;border:1px solid var(--line,#d3dfe8);border-radius:8px;padding:8px 12px;font-size:14px;line-height:1.45}' +
     '.map-table{border-collapse:collapse;font-size:14px;min-width:360px}' +
-    '.map-table th{text-align:left;border-bottom:2px solid var(--line,#ddd8cc);padding:6px 10px;font-size:12px;color:var(--muted,#5b6b62);text-transform:uppercase}' +
-    '.map-table td{border-bottom:1px solid var(--line,#ddd8cc);padding:6px 10px}.map-table td.map-num,.map-table th.map-num{text-align:right}' +
+    '.map-table th{text-align:left;border-bottom:2px solid var(--line,#d3dfe8);padding:6px 10px;font-size:12px;color:var(--muted,#4f6b7e);text-transform:uppercase}' +
+    '.map-table td{border-bottom:1px solid var(--line,#d3dfe8);padding:6px 10px}.map-table td.map-num,.map-table th.map-num{text-align:right}' +
     '.map-tables{display:flex;flex-wrap:wrap;gap:20px;overflow-x:auto}' +
     '.map-basket{background:#fff3d6;border:1px solid #d9951a;border-radius:8px;padding:10px 14px;font-size:15px;line-height:1.5;margin:10px 0}';
 
@@ -108,8 +108,8 @@
     // Leader lines first (so badges sit on top), then small true-location dots, then badges.
     items.forEach(function (m) {
       var moved = Math.abs(m.x - m.tx) + Math.abs(m.y - m.ty) > 3;
-      svg += (moved ? '<line x1="' + m.tx + '" y1="' + m.ty + '" x2="' + m.x + '" y2="' + m.y + '" stroke="#5b6b62" stroke-width="1"/>' : '') +
-        '<circle cx="' + m.tx + '" cy="' + m.ty + '" r="2" fill="#1f2a24"/>';
+      svg += (moved ? '<line x1="' + m.tx + '" y1="' + m.ty + '" x2="' + m.x + '" y2="' + m.y + '" stroke="#4f6b7e" stroke-width="1"/>' : '') +
+        '<circle cx="' + m.tx + '" cy="' + m.ty + '" r="2" fill="#17323f"/>';
     });
     items.forEach(function (m) {
       var x = m.x.toFixed(1), y = m.y.toFixed(1), tip, body, label;
@@ -119,18 +119,18 @@
         label = m.short;
       } else if (m.kind === 'home') {
         tip = m.name + ': where every shipment ends up.';
-        body = '<polygon class="map-shape" fill="#1f2a24" stroke="#fff" stroke-width="1.5" points="' + x + ',' + (+y - 13) + ' ' + (+x + 12) + ',' + (+y - 4) + ' ' + (+x + 8) + ',' + (+y + 11) + ' ' + (+x - 8) + ',' + (+y + 11) + ' ' + (+x - 12) + ',' + (+y - 4) + '"/>' +
+        body = '<polygon class="map-shape" fill="#17323f" stroke="#fff" stroke-width="1.5" points="' + x + ',' + (+y - 13) + ' ' + (+x + 12) + ',' + (+y - 4) + ' ' + (+x + 8) + ',' + (+y + 11) + ' ' + (+x - 8) + ',' + (+y + 11) + ' ' + (+x - 12) + ',' + (+y - 4) + '"/>' +
           '<text x="' + x + '" y="' + (+y + 5) + '" font-size="9" font-weight="700" fill="#fff" text-anchor="middle" pointer-events="none">HQ</text>';
         label = m.short;
       } else {
         tip = m.name + ': overseas shipments arrive here, then go by truck to Hendersonville.';
-        body = '<rect class="map-shape" x="' + (+x - 8) + '" y="' + (+y - 8) + '" width="16" height="16" fill="#fff" stroke="#1f2a24" stroke-width="2" transform="rotate(45 ' + x + ' ' + y + ')"/>' +
-          '<text x="' + x + '" y="' + (+y + 4) + '" font-size="10" font-weight="700" fill="#1f2a24" text-anchor="middle" pointer-events="none">P</text>';
+        body = '<rect class="map-shape" x="' + (+x - 8) + '" y="' + (+y - 8) + '" width="16" height="16" fill="#fff" stroke="#17323f" stroke-width="2" transform="rotate(45 ' + x + ' ' + y + ')"/>' +
+          '<text x="' + x + '" y="' + (+y + 4) + '" font-size="10" font-weight="700" fill="#17323f" text-anchor="middle" pointer-events="none">P</text>';
         label = m.short;
       }
       // The name goes under the badge, with a pale outline so it stays readable over lines.
       svg += '<g class="map-marker" tabindex="0" data-map-tip="' + esc(tip) + '" role="img" aria-label="' + esc(tip) + '"><title>' + esc(tip) + '</title>' + body +
-        '<text x="' + x + '" y="' + (+y + 26) + '" font-size="11" fill="#1f2a24" text-anchor="middle" pointer-events="none" stroke="#f3f6f7" stroke-width="3" paint-order="stroke">' + esc(label) + '</text></g>';
+        '<text x="' + x + '" y="' + (+y + 26) + '" font-size="11" fill="#17323f" text-anchor="middle" pointer-events="none" stroke="#f3f6f7" stroke-width="3" paint-order="stroke">' + esc(label) + '</text></g>';
     });
     svg += '</svg>';
     return svg;
@@ -149,7 +149,7 @@
       var keys = Object.keys(obj).sort(function (a, b) { return obj[b].spend - obj[a].spend; });
       return '<div><table class="map-table"><thead><tr><th>' + title + '</th><th class="map-num">Suppliers</th><th class="map-num">Annual spend</th><th class="map-num">Share</th></tr></thead><tbody>' +
         keys.map(function (k) {
-          return '<tr><td>' + esc(k) + '<div style="font-size:12px;color:#5b6b62">' + esc(obj[k].names.join(', ')) + '</div></td><td class="map-num">' + obj[k].n + '</td><td class="map-num">' + money(obj[k].spend) + '</td><td class="map-num">' + pct(obj[k].spend / total * 100) + '</td></tr>';
+          return '<tr><td>' + esc(k) + '<div style="font-size:12px;color:#4f6b7e">' + esc(obj[k].names.join(', ')) + '</div></td><td class="map-num">' + obj[k].n + '</td><td class="map-num">' + money(obj[k].spend) + '</td><td class="map-num">' + pct(obj[k].spend / total * 100) + '</td></tr>';
         }).join('') + '</tbody></table></div>';
     }
     var tw = byCountry.Taiwan || { spend: 0, n: 0, names: [] };
@@ -178,8 +178,8 @@
       '<div class="map-legend"><span><svg width="22" height="22" viewBox="-13 -13 26 26" style="vertical-align:middle"><polygon fill="' + COLORS.High + '" points="0,-12 12,0 0,12 -12,0"/><text y="4" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">H</text></svg> High risk</span>' +
       '<span><svg width="22" height="22" viewBox="-13 -13 26 26" style="vertical-align:middle"><rect fill="' + COLORS.Medium + '" x="-10" y="-10" width="20" height="20" rx="2"/><text y="4" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">M</text></svg> Medium risk</span>' +
       '<span><svg width="22" height="22" viewBox="-13 -13 26 26" style="vertical-align:middle"><circle fill="' + COLORS.Low + '" r="11"/><text y="4" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">L</text></svg> Low risk</span>' +
-      '<span><svg width="22" height="22" viewBox="-13 -13 26 26" style="vertical-align:middle"><rect x="-8" y="-8" width="16" height="16" fill="#fff" stroke="#1f2a24" stroke-width="2" transform="rotate(45)"/><text y="4" font-size="10" font-weight="700" text-anchor="middle">P</text></svg> US port</span>' +
-      '<span><svg width="22" height="22" viewBox="-13 -13 26 26" style="vertical-align:middle"><polygon fill="#1f2a24" points="0,-13 12,-4 8,11 -8,11 -12,-4"/><text y="5" font-size="9" font-weight="700" fill="#fff" text-anchor="middle">HQ</text></svg> Our factory</span></div>' +
+      '<span><svg width="22" height="22" viewBox="-13 -13 26 26" style="vertical-align:middle"><rect x="-8" y="-8" width="16" height="16" fill="#fff" stroke="#17323f" stroke-width="2" transform="rotate(45)"/><text y="4" font-size="10" font-weight="700" text-anchor="middle">P</text></svg> US port</span>' +
+      '<span><svg width="22" height="22" viewBox="-13 -13 26 26" style="vertical-align:middle"><polygon fill="#17323f" points="0,-13 12,-4 8,11 -8,11 -12,-4"/><text y="5" font-size="9" font-weight="700" fill="#fff" text-anchor="middle">HQ</text></svg> Our factory</span></div>' +
       build(D, risk) +
       '<div class="map-detail" id="map-detail" aria-live="polite">Tap or hover over a badge to see the supplier, its city, its risk level and why.</div>' +
       basket(D) + '</div>';

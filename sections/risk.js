@@ -130,20 +130,20 @@
   window.GS_RISK_RULE = { today: TODAY, freshDays: FRESH_DAYS };
 
   var css =
-    '.risk-card{background:var(--card,#fff);border:1px solid var(--line,#ddd8cc);border-radius:12px;padding:20px 24px;color:var(--ink,#1f2a24)}' +
+    '.risk-card{background:var(--card,#fff);border:1px solid var(--line,#d3dfe8);border-radius:12px;padding:20px 24px;color:var(--ink,#17323f)}' +
     '.risk-card h2{margin:0 0 6px;font-size:22px}' +
-    '.risk-note{color:var(--muted,#5b6b62);font-size:14px;line-height:1.5;margin:0 0 14px}' +
+    '.risk-note{color:var(--muted,#4f6b7e);font-size:14px;line-height:1.5;margin:0 0 14px}' +
     '.risk-scroll{overflow-x:auto}' +
     '.risk-table{border-collapse:collapse;width:100%;font-size:14px;min-width:900px}' +
-    '.risk-table th{text-align:left;border-bottom:2px solid var(--line,#ddd8cc);padding:8px;color:var(--muted,#5b6b62);font-size:12px;text-transform:uppercase;letter-spacing:.04em}' +
-    '.risk-table td{border-bottom:1px solid var(--line,#ddd8cc);padding:10px 8px;vertical-align:top;line-height:1.45}' +
+    '.risk-table th{text-align:left;border-bottom:2px solid var(--line,#d3dfe8);padding:8px;color:var(--muted,#4f6b7e);font-size:12px;text-transform:uppercase;letter-spacing:.04em}' +
+    '.risk-table td{border-bottom:1px solid var(--line,#d3dfe8);padding:10px 8px;vertical-align:top;line-height:1.45}' +
     '.risk-badge{display:inline-block;padding:3px 10px;border-radius:999px;font-weight:700;font-size:13px;border:1px solid}' +
     '.risk-High{background:#fde8e6;color:#8a1c14;border-color:#c0392b}' +
     '.risk-Medium{background:#fff3d6;color:#7a4b00;border-color:#d9951a}' +
     '.risk-Low{background:#e3f2e8;color:#1d5a37;border-color:#2f6b4f}' +
     '.risk-reasons{margin:0;padding-left:16px}' +
-    '.risk-small{color:var(--muted,#5b6b62);font-size:12px}' +
-    '.risk-tag{display:inline-block;font-size:12px;border:1px solid var(--line,#ddd8cc);border-radius:4px;padding:0 5px;margin-right:4px}' +
+    '.risk-small{color:var(--muted,#4f6b7e);font-size:12px}' +
+    '.risk-tag{display:inline-block;font-size:12px;border:1px solid var(--line,#d3dfe8);border-radius:4px;padding:0 5px;margin-right:4px}' +
     '.risk-warnings a{font-weight:600}';
 
   function render() {

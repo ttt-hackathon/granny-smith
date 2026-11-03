@@ -15,18 +15,18 @@
   function num(n) { return Math.round(n).toLocaleString('en-US'); }
 
   var css =
-    '.whatif-card{background:var(--card,#fff);border:1px solid var(--line,#ddd8cc);border-radius:12px;padding:20px 24px;color:var(--ink,#1f2a24)}' +
+    '.whatif-card{background:var(--card,#fff);border:1px solid var(--line,#d3dfe8);border-radius:12px;padding:20px 24px;color:var(--ink,#17323f)}' +
     '.whatif-card h2{margin:0 0 6px;font-size:22px}' +
-    '.whatif-note{color:var(--muted,#5b6b62);font-size:14px;line-height:1.5;margin:0 0 10px}' +
-    '.whatif-controls{display:flex;flex-wrap:wrap;gap:14px 28px;align-items:center;background:#f6f4ee;border:1px solid var(--line,#ddd8cc);border-radius:8px;padding:12px 16px;margin:10px 0}' +
+    '.whatif-note{color:var(--muted,#4f6b7e);font-size:14px;line-height:1.5;margin:0 0 10px}' +
+    '.whatif-controls{display:flex;flex-wrap:wrap;gap:14px 28px;align-items:center;background:#eaf1f6;border:1px solid var(--line,#d3dfe8);border-radius:8px;padding:12px 16px;margin:10px 0}' +
     '.whatif-controls select{font:inherit;padding:4px 8px}.whatif-controls input[type=range]{width:220px;vertical-align:middle}' +
     '.whatif-sum{font-size:17px;line-height:1.5;font-weight:600;background:#fff3d6;border:1px solid #d9951a;border-radius:8px;padding:10px 14px;margin:12px 0}' +
     '.whatif-sum.whatif-ok{background:#e3f2e8;border-color:#2f6b4f}' +
     '.whatif-scroll{overflow-x:auto}.whatif-table{border-collapse:collapse;width:100%;font-size:14px;min-width:760px}' +
-    '.whatif-table th{text-align:left;border-bottom:2px solid var(--line,#ddd8cc);padding:8px;color:var(--muted,#5b6b62);font-size:12px;text-transform:uppercase;letter-spacing:.04em}' +
-    '.whatif-table td{border-bottom:1px solid var(--line,#ddd8cc);padding:8px;vertical-align:top}' +
-    '.whatif-num{text-align:right!important}.whatif-small{font-size:12px;color:var(--muted,#5b6b62)}' +
-    '.whatif-simp{font-size:13px;color:var(--muted,#5b6b62);line-height:1.5;margin:12px 0 0;padding-left:20px}';
+    '.whatif-table th{text-align:left;border-bottom:2px solid var(--line,#d3dfe8);padding:8px;color:var(--muted,#4f6b7e);font-size:12px;text-transform:uppercase;letter-spacing:.04em}' +
+    '.whatif-table td{border-bottom:1px solid var(--line,#d3dfe8);padding:8px;vertical-align:top}' +
+    '.whatif-num{text-align:right!important}.whatif-small{font-size:12px;color:var(--muted,#4f6b7e)}' +
+    '.whatif-simp{font-size:13px;color:var(--muted,#4f6b7e);line-height:1.5;margin:12px 0 0;padding-left:20px}';
 
   // Replay stock day by day. outageSupplier may be null (normal run). Day 0 is the data date.
   function simulate(D, outageSupplier, outageDays, horizon) {

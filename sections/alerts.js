@@ -89,9 +89,9 @@
   }
 
   var css =
-    '.alerts-card{background:var(--card,#fff);border:1px solid var(--line,#ddd8cc);border-radius:12px;padding:20px 24px;color:var(--ink,#1f2a24)}' +
+    '.alerts-card{background:var(--card,#fff);border:1px solid var(--line,#d3dfe8);border-radius:12px;padding:20px 24px;color:var(--ink,#17323f)}' +
     '.alerts-card h2{margin:0 0 6px;font-size:22px}' +
-    '.alerts-rule{background:#f6f4ee;border:1px solid var(--line,#ddd8cc);border-radius:8px;padding:10px 14px;font-size:14px;line-height:1.5;color:var(--muted,#5b6b62)}' +
+    '.alerts-rule{background:#eaf1f6;border:1px solid var(--line,#d3dfe8);border-radius:8px;padding:10px 14px;font-size:14px;line-height:1.5;color:var(--muted,#4f6b7e)}' +
     '.alerts-rule ul{margin:4px 0 0;padding-left:20px}' +
     '.alerts-none{font-size:18px;font-weight:700;color:#1d5a37;margin:16px 0}' +
     '.alerts-item{border:2px solid #c0392b;border-radius:10px;padding:14px 18px;margin-top:16px;background:#fffafa}' +
@@ -100,14 +100,14 @@
     '.alerts-badge{display:inline-block;padding:2px 10px;border-radius:999px;font-size:13px;background:#fde8e6;color:#8a1c14;border:1px solid #c0392b}' +
     '.alerts-itemtest{border-color:#6b3fa0;background:#faf7fe}' +
     '.alerts-banner{background:#6b3fa0;color:#fff;font-size:22px;font-weight:800;text-align:center;padding:12px;border-radius:6px;margin:0 0 12px;letter-spacing:.04em}' +
-    '.alerts-email{width:100%;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;line-height:1.45;padding:10px;border:1px solid var(--line,#ddd8cc);border-radius:6px;background:#fff;color:var(--ink,#1f2a24)}' +
+    '.alerts-email{width:100%;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;line-height:1.45;padding:10px;border:1px solid var(--line,#d3dfe8);border-radius:6px;background:#fff;color:var(--ink,#17323f)}' +
     '.alerts-row{margin-top:8px}' +
-    '.alerts-btn{font:inherit;font-weight:600;background:var(--accent,#2f6b4f);color:#fff;border:0;border-radius:6px;padding:8px 14px;cursor:pointer}' +
+    '.alerts-btn{font:inherit;font-weight:600;background:var(--accent,#255572);color:#fff;border:0;border-radius:6px;padding:8px 14px;cursor:pointer}' +
     '.alerts-btn-test{background:#6b3fa0}' +
-    '.alerts-link{margin-left:10px;color:var(--accent,#2f6b4f);font-weight:600}' +
-    '.alerts-small{font-size:12px;color:var(--muted,#5b6b62)}' +
-    '.alerts-bg{margin-top:20px;border-top:1px dashed var(--line,#ddd8cc);padding-top:10px}.alerts-bg h3{margin:0 0 4px;font-size:16px}.alerts-bg ul{margin:4px 0;padding-left:22px;line-height:1.5;font-size:14px}' +
-    '.alerts-testbox{margin-top:20px;border-top:1px dashed var(--line,#ddd8cc);padding-top:14px}';
+    '.alerts-link{margin-left:10px;color:var(--accent,#255572);font-weight:600}' +
+    '.alerts-small{font-size:12px;color:var(--muted,#4f6b7e)}' +
+    '.alerts-bg{margin-top:20px;border-top:1px dashed var(--line,#d3dfe8);padding-top:10px}.alerts-bg h3{margin:0 0 4px;font-size:16px}.alerts-bg ul{margin:4px 0;padding-left:22px;line-height:1.5;font-size:14px}' +
+    '.alerts-testbox{margin-top:20px;border-top:1px dashed var(--line,#d3dfe8);padding-top:14px}';
 
   function testSignal(D) {
     return { supplier_id: 'S01', kind: 'news', headline: 'TEST: Fictional fire at Cataloochee Cell Works battery plant (made up, for testing only)',

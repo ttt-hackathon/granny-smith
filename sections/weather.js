@@ -37,22 +37,22 @@
   window.GS_CHECKED[KIND] = { date: TODAY, suppliers: CHECKED.slice() };
 
   var CSS =
-    "." + P + "wrap{font-family:inherit;color:#1f2a24;}" +
-    "." + P + "title{margin:0 0 4px;font-size:1.25rem;color:#2f6b4f;}" +
+    "." + P + "wrap{font-family:inherit;color:#17323f;}" +
+    "." + P + "title{margin:0 0 4px;font-size:1.25rem;color:#255572;}" +
     "." + P + "sub{margin:0 0 12px;font-size:.85rem;color:#5b655f;}" +
-    "." + P + "row{background:#fff;border:1px solid #ddd8cc;border-radius:8px;padding:10px 14px;margin:0 0 8px;}" +
+    "." + P + "row{background:#fff;border:1px solid #d3dfe8;border-radius:8px;padding:10px 14px;margin:0 0 8px;}" +
     "." + P + "name{font-weight:600;}" +
     "." + P + "where{font-size:.8rem;color:#5b655f;margin-left:6px;}" +
     "." + P + "none{margin:6px 0 0;font-size:.9rem;color:#5b655f;}" +
-    "." + P + "item{margin:8px 0 0;padding-top:8px;border-top:1px solid #ddd8cc;}" +
+    "." + P + "item{margin:8px 0 0;padding-top:8px;border-top:1px solid #d3dfe8;}" +
     "." + P + "head{font-weight:600;}" +
     "." + P + "text{margin:4px 0;font-size:.92rem;line-height:1.4;}" +
     "." + P + "meta{font-size:.8rem;color:#5b655f;}" +
-    "." + P + "meta a{color:#2f6b4f;}" +
-    "." + P + "badge{display:inline-block;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.03em;padding:1px 7px;border-radius:10px;margin-right:6px;border:1px solid #ddd8cc;}" +
+    "." + P + "meta a{color:#255572;}" +
+    "." + P + "badge{display:inline-block;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.03em;padding:1px 7px;border-radius:10px;margin-right:6px;border:1px solid #d3dfe8;}" +
     "." + P + "badge-serious{background:#fbe4e1;color:#8a1f11;border-color:#e6b3ab;}" +
     "." + P + "badge-watch{background:#fff3d6;color:#7a5200;border-color:#e8d08f;}" +
-    "." + P + "badge-info{background:#e6f0ea;color:#2f6b4f;border-color:#bcd5c6;}";
+    "." + P + "badge-info{background:#e3ecf3;color:#255572;border-color:#b7cbdb;}";
 
   function el(tag, cls, text) {
     var e = document.createElement(tag);

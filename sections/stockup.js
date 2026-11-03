@@ -17,17 +17,17 @@
   function wk(n) { return (Math.round(n * 10) / 10) + ''; }
 
   var css =
-    '.stockup-card{background:var(--card,#fff);border:1px solid var(--line,#ddd8cc);border-radius:12px;padding:20px 24px;color:var(--ink,#1f2a24)}' +
+    '.stockup-card{background:var(--card,#fff);border:1px solid var(--line,#d3dfe8);border-radius:12px;padding:20px 24px;color:var(--ink,#17323f)}' +
     '.stockup-card h2{margin:0 0 6px;font-size:22px}.stockup-card h3{margin:18px 0 6px;font-size:17px}' +
-    '.stockup-note{color:var(--muted,#5b6b62);font-size:14px;line-height:1.5;margin:0 0 10px}' +
-    '.stockup-assume{background:#f6f4ee;border:1px solid var(--line,#ddd8cc);border-radius:8px;padding:10px 14px;font-size:14px;line-height:1.9}' +
-    '.stockup-assume input{width:64px;font:inherit;padding:2px 6px;border:1px solid var(--line,#ddd8cc);border-radius:4px}' +
+    '.stockup-note{color:var(--muted,#4f6b7e);font-size:14px;line-height:1.5;margin:0 0 10px}' +
+    '.stockup-assume{background:#eaf1f6;border:1px solid var(--line,#d3dfe8);border-radius:8px;padding:10px 14px;font-size:14px;line-height:1.9}' +
+    '.stockup-assume input{width:64px;font:inherit;padding:2px 6px;border:1px solid var(--line,#d3dfe8);border-radius:4px}' +
     '.stockup-total{font-size:18px;font-weight:700;margin:14px 0}' +
     '.stockup-top{margin:0;padding-left:22px;line-height:1.55}.stockup-top li{margin-bottom:8px}' +
     '.stockup-scroll{overflow-x:auto}.stockup-table{border-collapse:collapse;width:100%;font-size:14px;min-width:980px}' +
-    '.stockup-table th{text-align:left;border-bottom:2px solid var(--line,#ddd8cc);padding:8px;color:var(--muted,#5b6b62);font-size:12px;text-transform:uppercase;letter-spacing:.04em}' +
-    '.stockup-table td{border-bottom:1px solid var(--line,#ddd8cc);padding:8px;vertical-align:top}' +
-    '.stockup-table .stockup-num{text-align:right}.stockup-small{font-size:12px;color:var(--muted,#5b6b62)}' +
+    '.stockup-table th{text-align:left;border-bottom:2px solid var(--line,#d3dfe8);padding:8px;color:var(--muted,#4f6b7e);font-size:12px;text-transform:uppercase;letter-spacing:.04em}' +
+    '.stockup-table td{border-bottom:1px solid var(--line,#d3dfe8);padding:8px;vertical-align:top}' +
+    '.stockup-table .stockup-num{text-align:right}.stockup-small{font-size:12px;color:var(--muted,#4f6b7e)}' +
     '.stockup-warn{background:#fff3d6;border:1px solid #d9951a;border-radius:8px;padding:8px 12px;font-size:14px;line-height:1.5;margin-top:12px}';
 
   function compute(D, longWeeks, shortWeeks, longDays) {

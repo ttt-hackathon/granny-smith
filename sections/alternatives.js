@@ -225,25 +225,25 @@
   window.GS_ALTERNATIVES = A;
 
   var CSS =
-    "." + P + "wrap{font-family:inherit;color:#1f2a24;}" +
-    "." + P + "title{margin:0 0 4px;font-size:1.25rem;color:#2f6b4f;}" +
+    "." + P + "wrap{font-family:inherit;color:#17323f;}" +
+    "." + P + "title{margin:0 0 4px;font-size:1.25rem;color:#255572;}" +
     "." + P + "caveat{margin:0 0 12px;padding:8px 12px;font-size:.88rem;line-height:1.4;background:#fff3d6;border:1px solid #e8d08f;border-radius:8px;color:#5a3d00;}" +
     "." + P + "group{margin:0 0 16px;}" +
     "." + P + "grouphead{margin:0 0 6px;font-size:1.02rem;font-weight:700;}" +
     "." + P + "groupsub{font-weight:400;font-size:.82rem;color:#5b655f;margin-left:6px;}" +
     "." + P + "cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;}" +
-    "." + P + "card{background:#fff;border:1px solid #ddd8cc;border-radius:8px;padding:10px 14px;font-size:.88rem;line-height:1.4;}" +
+    "." + P + "card{background:#fff;border:1px solid #d3dfe8;border-radius:8px;padding:10px 14px;font-size:.88rem;line-height:1.4;}" +
     "." + P + "name{font-weight:700;font-size:.98rem;margin:0 0 2px;}" +
     "." + P + "loc{color:#5b655f;font-size:.82rem;margin:0 0 6px;}" +
     "." + P + "field{margin:4px 0;}" +
     "." + P + "label{font-weight:600;}" +
     "." + P + "unv{color:#7a5200;}" +
-    "." + P + "flag{display:inline-block;font-size:.72rem;font-weight:700;padding:1px 7px;border-radius:10px;margin:0 4px 6px 0;border:1px solid #ddd8cc;}" +
+    "." + P + "flag{display:inline-block;font-size:.72rem;font-weight:700;padding:1px 7px;border-radius:10px;margin:0 4px 6px 0;border:1px solid #d3dfe8;}" +
     "." + P + "flag-same{background:#fbe4e1;color:#8a1f11;border-color:#e6b3ab;}" +
     "." + P + "flag-country{background:#fff3d6;color:#7a5200;border-color:#e8d08f;}" +
-    "." + P + "flag-diff{background:#e6f0ea;color:#2f6b4f;border-color:#bcd5c6;}" +
+    "." + P + "flag-diff{background:#e3ecf3;color:#255572;border-color:#b7cbdb;}" +
     "." + P + "meta{font-size:.78rem;color:#5b655f;margin-top:6px;}" +
-    "." + P + "meta a{color:#2f6b4f;}";
+    "." + P + "meta a{color:#255572;}";
 
   function el(tag, cls, text) {
     var e = document.createElement(tag);

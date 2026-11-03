@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>At a glance · Supplier Early Warning · Laurel Ridge Bikeworks</title>
+<style>
+  :root {
+    --ink:#17323f; --muted:#4f6b7e; --line:#d3dfe8; --bg:#eaf1f6; --card:#fff; --accent:#255572; --brand:#255572; --brand-light:#5f87a6;
+    --stock:#255572; --stock-soft:#cfdde8;
+    --crit:#d03b3b; --crit-soft:#fbe6e4; --med:#fab219; --med-ink:#6b4500; --good:#0ca30c;
+  }
+  * { box-sizing:border-box; }
+  html { font-size:clamp(10px, 1.55vh, 17px); }
+  html, body { height:100%; margin:0; }
+  body { background:var(--bg); color:var(--ink); font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; overflow:hidden; }
+  a { color:var(--accent); }
+  .page { height:100vh; padding:1.1rem 1.5rem 0.9rem; display:grid; gap:0.9rem; grid-template-rows:auto auto minmax(0,1fr) auto auto; }
+
+  /* header + verdict */
+  .top { display:flex; justify-content:space-between; align-items:flex-end; gap:1rem; }
+  .brand { display:flex; align-items:center; gap:1rem; }
+  .logo { background:#fff; border:1px solid var(--line); border-radius:0.6rem; padding:0.3rem 0.7rem; display:flex; }
+  .logo img { height:3.5rem; width:auto; display:block; }
+  .eyebrow { font-size:0.8rem; letter-spacing:.09em; text-transform:uppercase; color:var(--brand-light); font-weight:700; }
+  h1 { margin:.1rem 0 0; font-size:1.9rem; line-height:1.1; color:var(--brand); }
+  .asof { text-align:right; color:var(--muted); font-size:0.85rem; line-height:1.4; }
+  .verdict { background:var(--brand); color:#fff; border-left:0.6rem solid var(--crit); border-radius:0.8rem; padding:0.7rem 1.1rem; font-size:1.25rem; font-weight:700; line-height:1.3; display:flex; gap:0.8rem; align-items:center; }
+  .verdict small { display:block; font-weight:500; font-size:0.9rem; opacity:.95; margin-top:.1rem; }
+  .verdict.ok { background:var(--brand); border-left-color:var(--good); }
+  .vicon { color:#ffd0cc; }
+  .vicon { font-size:1.9rem; line-height:1; }
+
+  /* cards */
+  .card { background:var(--card); border:1px solid var(--line); border-radius:0.8rem; padding:0.8rem 1rem; min-height:0; overflow:hidden; }
+  h2 { margin:0 0 0.5rem; font-size:0.85rem; text-transform:uppercase; letter-spacing:.07em; color:var(--brand); }
+  .main { display:grid; grid-template-columns:minmax(0,1.55fr) minmax(0,1fr); gap:0.9rem; min-height:0; }
+  .right { display:grid; grid-template-rows:auto minmax(0,1fr); gap:0.9rem; min-height:0; }
+
+  /* KPI tiles */
+  .kpis { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:0.9rem; }
+  .kpi { background:var(--card); border:1px solid var(--line); border-radius:0.8rem; padding:0.6rem 0.9rem; }
+  .kpi .n { color:var(--brand); font-size:2.3rem; font-weight:800; line-height:1; letter-spacing:-.02em; }
+  .kpi .n span { font-size:1.1rem; font-weight:600; color:var(--muted); letter-spacing:0; }
+  .kpi .l { font-size:0.85rem; font-weight:650; margin-top:.25rem; }
+  .kpi .s { font-size:0.75rem; color:var(--muted); margin-top:.1rem; line-height:1.3; }
+  .kpi.hot .n { color:var(--crit); }
+
+  /* runway chart */
+  .card.chart { display:flex; flex-direction:column; }
+  #runway { flex:1; display:flex; flex-direction:column; min-height:0; }
+  .runway { flex:1; display:grid; align-content:space-evenly; gap:0.4rem; }
+  .rrow { display:grid; grid-template-columns:11.5rem minmax(0,1fr); align-items:center; gap:0.6rem; }
+  .rname { font-size:0.9rem; line-height:1.2; }
+  .rname b { display:block; font-weight:650; }
+  .rname span { color:var(--muted); font-size:0.75rem; }
+  .track { position:relative; height:2rem; }
+  .seg { position:absolute; top:0.5rem; height:1rem; }
+  .seg.stock { left:0; background:var(--stock); border-radius:0 4px 4px 0; }
+  .seg.gap { background:repeating-linear-gradient(135deg,var(--crit) 0 3px,#f2b3ae 3px 6px); border:1px solid var(--crit); border-radius:3px; min-width:5px; }
+  .tick { position:absolute; top:0; bottom:0; width:0; border-left:1px dashed #c5d4df; }
+  .lab { position:absolute; top:0; height:2rem; line-height:2rem; font-size:0.85rem; font-weight:700; color:var(--crit); white-space:nowrap; padding-left:0.4rem; }
+  .axis { display:grid; grid-template-columns:11.5rem minmax(0,1fr); gap:0.6rem; }
+  .axis .ax { position:relative; height:1.1rem; border-top:1px solid var(--line); }
+  .axis .ax span { position:absolute; top:0.15rem; font-size:0.72rem; color:var(--muted); transform:translateX(-50%); white-space:nowrap; }
+  .legend { display:flex; gap:1.1rem; font-size:0.75rem; color:var(--muted); margin-top:0.35rem; flex-wrap:wrap; }
+  .legend i { display:inline-block; width:1.4rem; height:0.6rem; vertical-align:middle; margin-right:0.35rem; border-radius:2px; }
+
+  /* supplier chips */
+  .chips { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:0.35rem 0.5rem; }
+  .chip { display:flex; align-items:center; gap:0.4rem; font-size:0.8rem; line-height:1.15; min-width:0; }
+  .chip .nm { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .mk { flex:none; width:1.25rem; height:1.25rem; display:inline-flex; align-items:center; justify-content:center; font-size:0.7rem; font-weight:800; }
+  .mk.H { background:var(--crit); color:#fff; transform:rotate(45deg); border-radius:3px; width:1.05rem; height:1.05rem; margin:0 0.1rem; }
+  .mk.H b { transform:rotate(-45deg); font-weight:800; }
+  .mk.M { background:var(--med); color:var(--med-ink); border-radius:3px; }
+  .mk.L { background:var(--good); color:#fff; border-radius:50%; }
+  .tally { font-size:0.8rem; color:var(--muted); margin-top:0.5rem; }
+
+  /* concentration bars */
+  .cbars { display:grid; gap:0.55rem; }
+  .cb { display:grid; grid-template-columns:5.2rem minmax(0,1fr) 2.6rem; align-items:center; gap:0.5rem; font-size:0.9rem; }
+  .cb .bar { height:0.9rem; background:#e3ecf3; border-radius:0 4px 4px 0; }
+  .cb .bar i { display:block; height:100%; background:var(--stock); border-radius:0 4px 4px 0; }
+  .cb .pct { text-align:right; font-weight:650; }
+  .cnote { font-size:0.78rem; color:var(--muted); margin-top:0.45rem; line-height:1.35; }
+
+  /* bottom */
+  .bottom { display:grid; grid-template-columns:minmax(0,1.55fr) minmax(0,1fr); gap:0.9rem; }
+  .warn { font-size:0.82rem; line-height:1.3; margin:0 0 0.4rem; display:grid; grid-template-columns:auto minmax(0,1fr); gap:0.1rem 0.6rem; }
+  .warn .who { font-weight:700; }
+  .warn .meta { color:var(--muted); font-size:0.74rem; }
+  .acts { margin:0; padding-left:1.1rem; font-size:0.82rem; line-height:1.35; }
+  .acts li { margin-bottom:0.3rem; }
+  .foot { display:flex; justify-content:space-between; gap:1rem; font-size:0.72rem; color:var(--muted); line-height:1.3; }
+
+  @media (max-width:900px) { html,body { overflow:auto; } .page { height:auto; } .main,.bottom { grid-template-columns:1fr; } .kpis { grid-template-columns:repeat(2,1fr); } }
+</style>
+</head>
+<body>
+<div class="page" id="page">
+  <div class="top">
+    <div class="brand">
+      <div class="logo"><img src="images%202.jpeg" alt="The Partnership, Henderson County NC Economic Development"></div>
+      <div>
+        <div class="eyebrow">Laurel Ridge Bikeworks · Team Granny Smith</div>
+        <h1>Supplier early warning, at a glance</h1>
+      </div>
+    </div>
+    <div class="asof" id="asof"></div>
+  </div>
+
+  <div class="verdict" id="verdict"></div>
+
+  <div class="main">
+    <div class="card chart">
+      <h2>Parts that run out before their next delivery</h2>
+      <div id="runway"></div>
+    </div>
+    <div class="right">
+      <div class="card">
+        <h2>All 13 suppliers</h2>
+        <div class="chips" id="chips"></div>
+        <div class="tally" id="tally"></div>
+      </div>
+      <div class="card">
+        <h2>Where our money sits (share of yearly spend)</h2>
+        <div class="cbars" id="cbars"></div>
+        <div class="cnote" id="cnote"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="bottom">
+    <div class="card">
+      <h2>Latest real warnings (source and date shown)</h2>
+      <div id="warns"></div>
+    </div>
+    <div class="card">
+      <h2>What purchasing should do now</h2>
+      <ol class="acts" id="acts"></ol>
+    </div>
+  </div>
+
+  <div class="foot">
+    <div id="foot"></div>
+    <div><a href="index.html">Open the full dashboard &rarr;</a></div>
+  </div>
+</div>
+
+<script src="data/laurel-ridge-data.js"></script>
+<script src="sections/weather.js"></script>
+<script src="sections/news.js"></script>
+<script src="sections/risk.js"></script>
+<script>
+(function () {
+  var D = window.LAUREL_RIDGE, $ = function (id) { return document.getElementById(id); };
+  var DAY = 86400000;
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function t(iso) { return Date.parse(iso + 'T00:00:00Z'); }
+  var MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function nice(iso) { var d = new Date(t(iso)); return MON[d.getUTCMonth()] + ' ' + d.getUTCDate(); }
+  function money(n) { return n >= 1e6 ? '$' + (n / 1e6).toFixed(1) + 'M' : '$' + Math.round(n / 1000) + 'K'; }
+  function short(n) { return n.replace(/ (Manufacturing|eBike Systems|Factory|Cell Works|Chain|Bikeworks)$/, ''); }
+
+  if (!D || !window.GS_RISK_ASSESS) { $('verdict').textContent = 'Data did not load. Open this file from the project folder.'; return; }
+  var R = window.GS_RISK_ASSESS();            // all 13 suppliers, sorted High first
+  var asOf = D.asOf, asOfMs = t(asOf);
+  var high = R.filter(function (r) { return r.level === 'High'; });
+  var med = R.filter(function (r) { return r.level === 'Medium'; });
+  var low = R.filter(function (r) { return r.level === 'Low'; });
+
+  // every part that runs out before its next delivery
+  var gaps = [];
+  R.forEach(function (r) { r.runOutGaps.forEach(function (g) { if (g.run_out_date && g.next_arrival) gaps.push({ s: r, g: g }); }); });
+  gaps.sort(function (a, b) { return a.g.run_out_date < b.g.run_out_date ? -1 : 1; });
+
+  // header
+  $('asof').innerHTML = 'Purchasing data as of ' + nice(asOf) + ', 2026<br>Warnings checked Nov 3, 2026';
+
+  // verdict
+  var v = $('verdict');
+  if (high.length) {
+    var first = gaps[0];
+    v.innerHTML = '<div class="vicon">&#9888;</div><div>' + high.length + ' of ' + R.length + ' suppliers need action now: ' +
+      (gaps.length ? gaps.length + ' parts will run out before their next delivery.' : 'real warnings found on key suppliers.') +
+      (first ? '<small>First line stoppage: ' + esc(first.g.description) + ' (' + esc(short(first.s.supplier_name)) + ') runs out about ' + nice(first.g.run_out_date) + ', ' + first.g.gap_days + ' days before the shipment lands.</small>' : '') + '</div>';
+  } else { v.className = 'verdict ok'; v.innerHTML = '<div class="vicon">&#10003;</div><div>No supplier needs action right now.</div>'; }
+
+  // runway chart
+  var rows = gaps.slice(0, 6);
+  if (!rows.length) { $('runway').innerHTML = '<p style="color:var(--muted)">No part runs out before its next delivery.</p>'; }
+  else {
+    var maxArr = Math.max.apply(null, rows.map(function (x) { return (t(x.g.next_arrival) - asOfMs) / DAY; }));
+    var span = Math.ceil((maxArr + 14) / 7) * 7;
+    var pos = function (d) { return (d / span * 100).toFixed(2) + '%'; };
+    var ticks = '';
+    for (var d = 0; d <= span; d += 14) { ticks += '<div class="tick" style="left:' + pos(d) + '"></div>'; }
+    var html = '<div class="runway">';
+    rows.forEach(function (x) {
+      var ro = (t(x.g.run_out_date) - asOfMs) / DAY, ar = (t(x.g.next_arrival) - asOfMs) / DAY;
+      html += '<div class="rrow"><div class="rname"><b>' + esc(x.g.description.replace(/^Frame, /, 'Frame: ').replace(/^Suspension fork.*/, 'Suspension fork')) + '</b><span>' + esc(short(x.s.supplier_name)) + '</span></div>' +
+        '<div class="track">' + ticks +
+        '<div class="seg stock" style="width:' + pos(ro) + '"></div>' +
+        '<div class="seg gap" style="left:' + pos(ro) + ';width:' + pos(ar - ro) + '"></div>' +
+        '<div class="lab" style="left:' + pos(ar) + '">' + x.g.gap_days + (x.g.gap_days === 1 ? ' day' : ' days') + ' with no stock</div></div></div>';
+    });
+    html += '<div class="axis"><div></div><div class="ax">';
+    for (var k = 0; k <= span; k += 14) { var dt = new Date(asOfMs + k * DAY); html += '<span style="left:' + pos(k) + '">' + (k === 0 ? 'Today' : MON[dt.getUTCMonth()] + ' ' + dt.getUTCDate()) + '</span>'; }
+    html += '</div></div></div>' +
+      '<div class="legend"><span><i style="background:var(--stock)"></i>Stock on hand lasts until empty</span>' +
+      '<span><i style="background:repeating-linear-gradient(135deg,var(--crit) 0 3px,#f2b3ae 3px 6px);border:1px solid var(--crit)"></i>Gap: empty shelf until the shipment lands</span></div>';
+    $('runway').innerHTML = html;
+  }
+
+  // supplier chips
+  var shape = { High: 'H', Medium: 'M', Low: 'L' };
+  $('chips').innerHTML = R.map(function (r) {
+    var s = shape[r.level];
+    return '<div class="chip" title="' + esc(r.supplier_name + ': ' + r.level + ' risk. ' + r.reasons[0]) + '"><span class="mk ' + s + '"><b>' + s + '</b></span><span class="nm">' + esc(short(r.supplier_name)) + '</span></div>';
+  }).join('');
+  $('tally').textContent = 'H = High (' + high.length + ')   M = Medium (' + med.length + ')   L = Low (' + low.length + ')';
+
+  // concentration by country
+  var tot = 0, byC = {};
+  D.suppliers.forEach(function (s) { var a = +s.annual_spend_usd; tot += a; byC[s.factory_country] = (byC[s.factory_country] || 0) + a; });
+  var cs = Object.keys(byC).sort(function (a, b) { return byC[b] - byC[a]; });
+  $('cbars').innerHTML = cs.slice(0, 5).map(function (c) {
+    var p = byC[c] / tot * 100;
+    return '<div class="cb"><span>' + esc(c.replace('United States', 'USA')) + '</span><div class="bar"><i style="width:' + (p / (byC[cs[0]] / tot * 100) * 100).toFixed(1) + '%"></i></div><span class="pct">' + Math.round(p) + '%</span></div>';
+  }).join('');
+  var ports = { 'Savannah, GA': 0, 'Charleston, SC': 0 };
+  D.suppliers.forEach(function (s) { if (ports.hasOwnProperty(s.us_port_of_entry)) ports[s.us_port_of_entry] += +s.annual_spend_usd; });
+  var twn = D.suppliers.filter(function (s) { return s.factory_country === 'Taiwan'; });
+  var portShare = (ports['Savannah, GA'] + ports['Charleston, SC']) / tot * 100;
+  $('cnote').innerHTML = twn.length + ' suppliers in Taiwan carry ' + Math.round(twn.reduce(function (a, s) { return a + +s.annual_spend_usd; }, 0) / tot * 100) + '% of spend. Two ports, Savannah and Charleston, take ' + Math.round(portShare) + '%. One storm or strike there hits many suppliers at once.';
+
+  // KPI tiles
+  var union = {}, exposed = 0;
+  high.forEach(function (r) { r.bikesAtRisk.forEach(function (b) { union[b.product_id] = b.weekly_sales; }); });
+  Object.keys(union).forEach(function (k) { exposed += union[k]; });
+  var sole = D.parts.filter(function (p) { return String(p.only_source).toLowerCase() === 'yes'; }).length;
+  var sigs = window.GS_SIGNALS || [], esc2 = R.reduce(function (a, r) { return a + r.escalatingSignals.length; }, 0);
+  var days = gaps.length ? Math.round((t(gaps[0].g.run_out_date) - asOfMs) / DAY) : null;
+  var revWeek = D.products.reduce(function (a, p) { return a + p.weekly_build_rate * p.retail_price_usd; }, 0);
+  var kp = [
+    { n: high.length, u: ' of ' + R.length, l: 'Suppliers at High risk', s: med.length + ' Medium, ' + low.length + ' Low', hot: high.length > 0 },
+    { n: days === null ? 'None' : days, u: days === null ? '' : ' days', l: 'Until the first line stoppage', s: gaps.length ? esc(gaps[0].g.description) + ', ' + nice(gaps[0].g.run_out_date) : 'No gaps found', hot: days !== null && days < 30 },
+    { n: money(exposed), u: '/wk', l: 'Weekly sales exposed', s: Object.keys(union).length + ' of ' + D.products.length + ' bike models; total ' + money(revWeek) + '/wk', hot: exposed > 0 },
+    { n: sole, u: ' of ' + D.parts.length, l: 'Parts with only one source', s: 'No approved backup supplier' },
+    { n: sigs.length, u: '', l: 'Real warnings tracked', s: esc2 + ' serious enough to raise risk; each has a source and date' }
+  ];
+  $('kpis').innerHTML = kp.map(function (k) { return '<div class="kpi' + (k.hot ? ' hot' : '') + '"><div class="n">' + k.n + '<span>' + k.u + '</span></div><div class="l">' + k.l + '</div><div class="s">' + k.s + '</div></div>'; }).join('');
+
+  // warnings: escalating first, then newest
+  var all = [];
+  R.forEach(function (r) { r.signals.forEach(function (x) { all.push({ s: r, x: x }); }); });
+  all.sort(function (a, b) { return (b.x.escalates ? 1 : 0) - (a.x.escalates ? 1 : 0) || (a.x.date < b.x.date ? 1 : -1); });
+  var seen = {}, pick = [];
+  all.forEach(function (o) { var key = o.x.headline; if (!seen[key] && pick.length < 3) { seen[key] = 1; pick.push(o); } });
+  $('warns').innerHTML = pick.length ? pick.map(function (o) {
+    return '<div class="warn"><span class="who">' + esc(short(o.s.supplier_name)) + '</span><span>' + esc(o.x.headline) +
+      '<span class="meta"> &middot; <a href="' + esc(o.x.source_url) + '" target="_blank" rel="noopener">' + esc(o.x.source_name) + '</a>, ' + esc(o.x.date) + ', confidence ' + esc(o.x.confidence) + '</span></span></div>';
+  }).join('') : '<p style="color:var(--muted);margin:0">No real warnings found as of Nov 3, 2026.</p>';
+
+  // actions
+  var grp = {}, order = [];
+  gaps.forEach(function (x) { var k = x.s.supplier_id + x.g.next_arrival; if (!grp[k]) { grp[k] = { s: x.s, arr: x.g.next_arrival, items: [] }; order.push(k); } grp[k].items.push(x.g); });
+  var acts = order.slice(0, 3).map(function (k) {
+    var o = grp[k];
+    return '<li><b>' + esc(short(o.s.supplier_name)) + ':</b> ask to pull the ' + nice(o.arr) + ' delivery forward or air-freight part of it (' +
+      o.items.map(function (g) { return esc(g.description) + ' empties about ' + nice(g.run_out_date); }).join('; ') + ').</li>';
+  });
+  var shownS = {}; order.slice(0, 3).forEach(function (k) { shownS[grp[k].s.supplier_id] = 1; });
+  var more = high.filter(function (r) { return !shownS[r.supplier_id]; });
+  if (more.length) acts.push('<li>Also confirm ship dates with ' + more.map(function (r) { return esc(short(r.supplier_name)); }).join(', ') + '.</li>');
+  $('acts').innerHTML = acts.join('') || '<li>No action needed today.</li>';
+
+  $('foot').textContent = 'Laurel Ridge Bikeworks and Cataloochee Cell Works are fictional; supplier names and locations are real, and all orders, prices and stock numbers are made up. Warnings are real, sourced and dated. Stock-out dates assume steady usage and no new orders.';
+})();
+</script>
+</body>
+</html>

@@ -5,14 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Team Granny Smith · Supplier Early Warning</title>
 <style>
-  :root { --ink: #1f2a24; --muted: #5b6b62; --accent: #2f6b4f; --bg: #f6f4ee; --card: #ffffff; --line: #ddd8cc; }
+  :root { --ink: #17323f; --muted: #4f6b7e; --accent: #255572; --bg: #eaf1f6; --card: #ffffff; --line: #d3dfe8; }
   * { box-sizing: border-box; }
   body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--ink); }
   header { background: var(--card); border-bottom: 1px solid var(--line); }
   .page-wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
   header .page-wrap { padding-top: 28px; padding-bottom: 24px; }
   .eyebrow { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
-  h1 { font-size: 32px; line-height: 1.15; margin: 8px 0 12px; }
+  h1 { font-size: 32px; line-height: 1.15; margin: 8px 0 12px; color: var(--accent); }
+  .logo { height: 64px; width: auto; display: block; margin-bottom: 14px; }
   header p { font-size: 17px; line-height: 1.55; color: var(--muted); margin: 0; max-width: 780px; }
   main.page-wrap { padding-top: 24px; padding-bottom: 40px; }
   main > div { margin-bottom: 24px; }
@@ -31,6 +32,7 @@
 <body>
 <header>
   <div class="page-wrap">
+    <img class="logo" src="images%202.jpeg" alt="The Partnership, Henderson County NC Economic Development">
     <div class="eyebrow">Laurel Ridge Bikeworks · Team Granny Smith</div>
     <h1>Supplier early-warning dashboard</h1>
     <p>This page watches our 13 suppliers for trouble before it hits the factory floor. It combines our own stock numbers with real weather and news warnings, and tells purchasing what to do. Alerts come first, then the risk table, then the warnings behind it.</p>
@@ -38,7 +40,7 @@
   </div>
 </header>
 <nav class="topnav" aria-label="Sections"><div class="page-wrap">
-  <a href="#alerts">Alerts</a><a href="#risk">Risk table</a><a href="#map">Map</a><a href="#stockup">Stock-up advisor</a><a href="#whatif">What if?</a><a href="#alternatives">Alternatives</a><a href="#weather">Weather</a><a href="#news">News</a>
+  <a href="at-a-glance.html">One-screen summary</a><a href="#alerts">Alerts</a><a href="#risk">Risk table</a><a href="#map">Map</a><a href="#stockup">Stock-up advisor</a><a href="#whatif">What if?</a><a href="#alternatives">Alternatives</a><a href="#weather">Weather</a><a href="#news">News</a>
 </div></nav>
 <main class="page-wrap">
   <div id="alerts"></div>
